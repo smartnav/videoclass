@@ -105,6 +105,7 @@ async function join() {
   console.log("options.uid, localTracks.audioTrack, localTracks.videoTrack", options.uid, localTracks.audioTrack, localTracks.videoTrack)
   // play local video track
   localTracks.videoTrack.play("local-player");
+  localAudilocalTracks.audioTrack.setVolume(200);
   console.log("options.uid-------------------------------------------", options.uid);
   $("#local-player-name").text(`localVideo(${options.uid})`);
 
@@ -118,7 +119,7 @@ async function startScreenCall() {
   await screenClient.join(options.appid, options.channel, options.token || null);
 
   const screenTrack = await AgoraRTC.createScreenVideoTrack();
-  screenTrack.play("remote-playerlist");
+  screenTrack.play("local-player");
   await screenClient.publish(screenTrack);
 
   return screenClient;
