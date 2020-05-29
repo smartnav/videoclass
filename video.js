@@ -118,7 +118,7 @@ async function startScreenCall() {
   await screenClient.join(options.appid, options.channel, options.token || null);
 
   const screenTrack = await AgoraRTC.createScreenVideoTrack();
-  screenTrack.play("local-player");
+  screenTrack.play("remote-playerlist");
   await screenClient.publish(screenTrack);
 
   return screenClient;
