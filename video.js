@@ -61,23 +61,6 @@ async function myFunction(){
   }
 }
 
-// $("#join-form").submit(async function (e) {
-//   e.preventDefault();
-//   $("#join").attr("disabled", true);
-//   try {
-//     options.appid = $("#appid").val();
-//     options.token = $("#token").val();
-//     options.channel = $("#channel").val();
-//     await join();
-//   } catch (error) {
-//     console.error(error);
-//   } finally {
-//     $("#success-alert a").attr("href", `index.html?appid=${options.appid}&channel=${options.channel}&token=${options.token}`);
-//     $("#success-alert").css("display", "block");
-//     $("#leave").attr("disabled", false);
-//   }
-// })
-
 $("#leave").click(function (e) {
   leave();
 })
@@ -102,11 +85,9 @@ async function join() {
   //   second,
   //   third
   // ])
-  console.log("options.uid, localTracks.audioTrack, localTracks.videoTrack", options.uid, localTracks.audioTrack, localTracks.videoTrack)
+  // console.log("options.uid, localTracks.audioTrack, localTracks.videoTrack", options.uid, localTracks.audioTrack, localTracks.videoTrack)
   // play local video track
   localTracks.videoTrack.play("local-player");
-  localAudilocalTracks.audioTrack.setVolume(200);
-  console.log("options.uid-------------------------------------------", options.uid);
   $("#local-player-name").text(`localVideo(${options.uid})`);
 
   // publish local tracks to channel
