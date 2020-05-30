@@ -75,6 +75,7 @@ $("#leave").click(function (e) {
 async function join() {
   // create Agora client
   console.log("Inside join");
+  
   client = AgoraRTC.createClient({ mode: "rtc", codec: "h264" });
 
   // add event listener to play remote tracks when remote user publishs.
@@ -84,9 +85,9 @@ async function join() {
   console.log("options.uid", options.uid);
   localTracks.audioTrack = await AgoraRTC.createMicrophoneAudioTrack();
   localTracks.videoTrack = await AgoraRTC.createCameraVideoTrack();
-  
+  const clientStats = client.getRTCStats();
   localTracks.videoTrack.play("local-player");
-  $("#local-player-name").text(`localVideo(${options.uid})`);
+  $("#local-player-name").text(`localVideo(${options.uid}) And Total Users ${clientStats.UserCount}`);
 
   // publish local tracks to channel
   await client.publish(Object.values(localTracks));
@@ -143,6 +144,7 @@ async function subscribe(user) {
   // subscribe to a remote user
   await client.subscribe(user, "all");
   console.log("subscribe success");
+  
   const player = $(`
     <div id="player-wrapper-${uid}">
       <p class="player-name">remoteUser(${uid})</p>
