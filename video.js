@@ -12,6 +12,7 @@
 var client; // Agora client
 var localTracks = {
   videoTrack: null,
+  screenTrack: null,
   audioTrack: null
 };
 var remoteUsers = {};
@@ -52,7 +53,11 @@ async function myFunction(){
     options.token = urlParams.get("token");
     await join();
   } catch (error) {
-    //console.log(error);
+    console.log("error", error);
+    if(error.code){
+      alert(error.code);
+      return;
+    }
     //console.error(error);
   } finally {
     $("#success-alert a").attr("href", `index.html?appid=${options.appid}&channel=${options.channel}&token=${options.token}`);
@@ -74,6 +79,7 @@ async function join() {
   client.on("user-published", handleUserPublished);
   client.on("user-unpublished", handleUserUnpublished);
   options.uid = await client.join(options.appid, options.channel, options.token || null);
+  console.log("options.uid", options.uid);
   localTracks.audioTrack = await AgoraRTC.createMicrophoneAudioTrack();
   localTracks.videoTrack = await AgoraRTC.createCameraVideoTrack();
 // console.log("options.appid, options.channel, options.token", options.appid, options.channel, options.token)
@@ -98,13 +104,21 @@ async function join() {
 async function startScreenCall() {
   const screenClient = AgoraRTC.createClient({ mode: "rtc", codec: "vp8" });
   await screenClient.join(options.appid, options.channel, options.token || null);
-
-  const screenTrack = await AgoraRTC.createScreenVideoTrack();
-  screenTrack.play("local-player");
+  localTracks.videoTrack.stop("local-player");
+  localTracks.screenTrack = await AgoraRTC.createScreenVideoTrack();
+  localTracks.screenTrack.play("local-player");
   await screenClient.publish(screenTrack);
-
   return screenClient;
 }
+
+async function stopScreenCall() {
+  localTracks.videoTrack.play("local-player");
+  localTracks.screenTrack.stop("local-player");
+  localTracks.screenTrack.close();
+  await screenClient.publish(screenTrack);
+  // return screenClient;
+}
+
 
 async function leave() {
   for (trackName in localTracks) {
