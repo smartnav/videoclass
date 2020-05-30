@@ -24,6 +24,8 @@ var options = {
   token: null
 };
 
+var ival = 0;
+
 // the demo can auto join channel with params in url
 // $(() => {
 //   var urlParams = new URL(location.href).searchParams;
@@ -82,17 +84,7 @@ async function join() {
   console.log("options.uid", options.uid);
   localTracks.audioTrack = await AgoraRTC.createMicrophoneAudioTrack();
   localTracks.videoTrack = await AgoraRTC.createCameraVideoTrack();
-// console.log("options.appid, options.channel, options.token", options.appid, options.channel, options.token)
-  // // join a channel and create local tracks, we can use Promise.all to run them concurrently
-  // [ options.uid, localTracks.audioTrack, localTracks.videoTrack ] = await Promise.all([
-  //   // join the channel
-  //   first,
-  //   // create local tracks, using microphone and camera
-  //   second,
-  //   third
-  // ])
-  // console.log("options.uid, localTracks.audioTrack, localTracks.videoTrack", options.uid, localTracks.audioTrack, localTracks.videoTrack)
-  // play local video track
+  
   localTracks.videoTrack.play("local-player");
   $("#local-player-name").text(`localVideo(${options.uid})`);
 
@@ -103,11 +95,14 @@ async function join() {
 
 async function startScreenCall() {
   const screenClient = AgoraRTC.createClient({ mode: "rtc", codec: "vp8" });
+  // add event listener to play remote tracks when remote user publishs.
+  client.on("user-published", handleUserPublished);
+  client.on("user-unpublished", handleUserUnpublished);
   await screenClient.join(options.appid, options.channel, options.token || null);
   localTracks.videoTrack.stop("local-player");
   localTracks.screenTrack = await AgoraRTC.createScreenVideoTrack();
   localTracks.screenTrack.play("local-player");
-  await screenClient.publish(screenTrack);
+  await screenClient.publish([localTracks.screenTrack]);
   return screenClient;
 }
 
@@ -154,12 +149,15 @@ async function subscribe(user) {
       <div id="player-${uid}" class="player-remote"></div>
     </div>
   `);
+
+  console.log("------------------------------", player)
   $("#remote-playerlist").append(player);
   user.videoTrack.play(`player-${uid}`);
   user.audioTrack.play();
 }
 
-function handleUserPublished(user) {
+function handleUserPublished(user, otherone) {
+  // console.log("L", JSON.stringify(otherone))
   const id = user.uid;
   remoteUsers[id] = user;
   subscribe(user);
