@@ -12,7 +12,7 @@
 var client; // Agora client
 var localTracks = {
   videoTrack: null,
-  screenTrack: null,
+  //screenTrack: null,
   audioTrack: null
 };
 var remoteUsers = {};
@@ -53,7 +53,7 @@ async function myFunction(){
     options.token = urlParams.get("token");
     await join();
   } catch (error) {
-    console.log("error", error);
+    //console.log("error", error);
     if(error.code){
       alert(error.code);
       return;
