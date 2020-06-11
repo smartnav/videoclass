@@ -10,9 +10,9 @@
 //   });
 
 var client; // Agora client
+var screenClient;
 var localTracks = {
   videoTrack: null,
-  //screenTrack: null,
   audioTrack: null
 };
 var remoteUsers = {};
@@ -82,7 +82,7 @@ async function join() {
   client.on("user-published", handleUserPublished);
   client.on("user-unpublished", handleUserUnpublished);
   options.uid = await client.join(options.appid, options.channel, options.token || null);
-  console.log("options.uid", options.uid);
+  // console.log("options.uid", options.uid);
   localTracks.audioTrack = await AgoraRTC.createMicrophoneAudioTrack();
   localTracks.videoTrack = await AgoraRTC.createCameraVideoTrack();
   const clientStats = client.getRTCStats();
@@ -95,23 +95,24 @@ async function join() {
 }
 
 async function startScreenCall() {
-  const screenClient = AgoraRTC.createClient({ mode: "rtc", codec: "vp8" });
+  screenClient = AgoraRTC.createClient({ mode: "rtc", codec: "vp8" });
   // add event listener to play remote tracks when remote user publishs.
-  client.on("user-published", handleUserPublished);
-  client.on("user-unpublished", handleUserUnpublished);
+  screenClient.on("user-published", handleUserPublishedScreen);
+ // screenClient.on("user-unpublished", handleUserUnpublished);
   await screenClient.join(options.appid, options.channel, options.token || null);
-  localTracks.videoTrack.stop("local-player");
-  localTracks.screenTrack = await AgoraRTC.createScreenVideoTrack();
-  localTracks.screenTrack.play("local-player");
-  await screenClient.publish([localTracks.screenTrack]);
-  return screenClient;
+  // localTracks.videoTrack.stop("local-player");
+  const screenTrack = await AgoraRTC.createScreenVideoTrack();
+  // localTracks.screenTrack.play("local-player");
+  await screenClient.publish(screenTrack);
+  //return screenClient;
 }
 
 async function stopScreenCall() {
-  localTracks.videoTrack.play("local-player");
-  localTracks.screenTrack.stop("local-player");
+  //localTracks.videoTrack.play("local-player");
+  //localTracks.screenTrack.stop("local-player");
+  localTracks.screenTrack.stop();
   localTracks.screenTrack.close();
-  await screenClient.publish(screenTrack);
+  // await screenClient.publish(localTracks.screenTrack);
   // return screenClient;
 }
 
@@ -143,7 +144,7 @@ async function subscribe(user) {
   const uid = user.uid;
   // subscribe to a remote user
   await client.subscribe(user, "all");
-  console.log("subscribe success");
+  // console.log("subscribe success*************************************************************");
   
   const player = $(`
     <div id="player-wrapper-${uid}">
@@ -152,10 +153,11 @@ async function subscribe(user) {
     </div>
   `);
 
-  console.log("------------------------------", player)
+  // console.log("------------------------------", player)
   $("#remote-playerlist").append(player);
   user.videoTrack.play(`player-${uid}`);
   user.audioTrack.play();
+  // console.log("End************************************************************************")
 }
 
 function handleUserPublished(user, otherone) {
@@ -170,3 +172,32 @@ function handleUserUnpublished(user) {
   delete remoteUsers[id];
   $(`#player-wrapper-${id}`).remove();
 }
+
+async function subscribeScreen(user) {
+  const uid = user.uid;
+  // subscribe to a remote user
+  await screenClient.subscribe(user, "all");
+  console.log("subscribe success*************************************************************");
+  
+  const player = $(`
+    <div id="player-wrapper-${uid}">
+      <p class="player-name">remoteUser(${uid})</p>
+      <div id="player-${uid}" class="player-remote"></div>
+    </div>
+  `);
+
+  console.log("------------------------------", player)
+  $("#remote-screenshare").html(player);
+  user.videoTrack.play(`player-${uid}`);
+  user.audioTrack.play();
+  console.log("End************************************************************************")
+}
+
+
+function handleUserPublishedScreen(user, otherone) {
+  console.log("L", JSON.stringify(otherone))
+  const id = user.uid;
+  remoteUsers[id] = user;
+  subscribeScreen(user);
+}
+
