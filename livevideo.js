@@ -409,6 +409,9 @@ function handleUserUnpublished(user) {
   $(`#player-wrapper-${id}`).remove();
   $(`#me_${id}`).remove();
   $(`#remote_video_${id}`).remove();
+      $("#local_stream").show();
+    $("#local_stream_screen").html("");
+    $("#local_stream_screen").hide();
 }
 
 // socket.on("unpublisedAck", (data)=> {
