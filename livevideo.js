@@ -73,7 +73,7 @@ const videoJoin = async(client, userData, localTracks) => {
 }
 
 //const socket = io('http://localhost:4000/');
-const socket = io('https://socket.kidatcode.com');
+// const socket = io('https://socket.kidatcode.com');
 
 $("#cameraOn").hide();
 $("#cameraOff").hide();
@@ -404,18 +404,18 @@ function handleUserPublished(user, mediaType) {
 function handleUserUnpublished(user) {
   const id = user.uid;
   let uidData = { uid: id }
-  socket.emit("unpublised", uidData);
+  // socket.emit("unpublised", uidData);
   delete remoteUsers[id];
   $(`#player-wrapper-${id}`).remove();
   $(`#me_${id}`).remove();
   $(`#remote_video_${id}`).remove();
 }
 
-socket.on("unpublisedAck", (data)=> {
-  // alert("unpublished");
-    $("#local_stream").show();
-    $("#local_stream_screen").html("");
-    $("#local_stream_screen").hide();
-})
+// socket.on("unpublisedAck", (data)=> {
+//   // alert("unpublished");
+//     $("#local_stream").show();
+//     $("#local_stream_screen").html("");
+//     $("#local_stream_screen").hide();
+// })
 
 
