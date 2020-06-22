@@ -1,3 +1,6 @@
+// const { resolve } = require("path");
+// const { rejects } = require("assert");
+
 var client; // Agora client
 var clientScreen;
 var localTracks = {
@@ -17,18 +20,73 @@ var options = {
   uid: null,
   token: null
 };
+// const ServerURL = 'http://localhost:4000/users';
+const ServerURL = 'https://socket.kidatcode.com/users';
+const getRequest = async(data) => {
+  const route = `${ServerURL}/getUserInfo`;
+  return new Promise((resolve, reject) => {
+    //alert(JSON.stringify(data))
+    $.ajax({
+      url: route,
+      headers: {
+          'Content-Type':'application/json'
+      },
+      type: 'GET',
+      data: data,
+      // data: {
+      //   uid: 4058633768,
+      // },
+      success: function(data) {
+        resolve(data)
+      },
+      error: function(error) {
+        reject(error)
+      },
+    })
+  })
+
+  // $.get(route, 
+  //   {uid: 4058633768},
+  //   function(data, status) {
+  //     return new Promise((resolve, rejects) =>{
+  //       resolve(data);
+  //     })
+  //     // return status;
+  //     // alert("adsfa");
+  //   // alert("Data: " + data + "\nStatus: " + status);
+  // });
+}
 
 
-const socket = io('http://54.187.176.86:4000');
+const videoJoin = async(client, userData, localTracks) => {
+  options.userId = userData._id;
+  if(userData.role == 'host'){
+    $("#local_stream").html("");
+    localTracks.videoTrack.play("local_stream");
+    $("<div class='content'><h1>"+userData.name+" ("+userData.role+")</h1><p>User id = "+userData.uid+"</p></div>").appendTo("#local_stream");
+    await client.publish(Object.values(localTracks));
+  }else{
+    $("<div class='remoteName' id= 'me_"+userData.uid+"'>"+userData.name+"</div><div class='player-remote' id= 'me'></div>").appendTo("#remote-playerlist");
+    localTracks.videoTrack.play("me");
+    await client.publish(Object.values(localTracks));
+  }
+}
+
+//const socket = io('http://localhost:4000/');
+const socket = io('https://socket.kidatcode.com');
 
 $("#cameraOn").hide();
+$("#cameraOff").hide();
 $("#micOn").hide();
 $("#screenShareOff").hide();
 $("#screenShareOn").hide();
 $("#leave").hide();
 $("#local_stream_screen").hide();
 // the demo can auto join channel with params in url
-$(() => {
+$(async() => {
+  // let d = await getRequest();
+  // alert(JSON.stringify(d));
+  // return;
   var urlParams = new URL(location.href).searchParams;
   options.appid = urlParams.get("appid");
   options.channel = urlParams.get("channel");
@@ -58,7 +116,7 @@ $("#join").click(async function (e) {
     // options.channel = $("#channel").val();
     options.appid = "141d75a8f7d24d5cb92d9d6ff6a41aa7";
     options.channel = "navishk";
-    options.token = "006141d75a8f7d24d5cb92d9d6ff6a41aa7IADO6xXmYJjaGVJ+QXJo9HCgOITaAmUVJ55198DhzvnB0qkWApQAAAAAEABFw28kPrPjXgEAAQA/s+Ne";
+    options.token = "006141d75a8f7d24d5cb92d9d6ff6a41aa7IACCdON6fQcy8dO0YCcQwjqJHhrxqkUP5u9SfaZd/VcR8qkWApQAAAAAEAArN+JcmfvwXgEAAQCY+/Be";
     await join();
     if(options.token) {
       $("#success-alert-with-token").css("display", "block");
@@ -101,6 +159,7 @@ $("#leave").click(function (e) {
   leave();
 })
 
+
 async function join() {
   // create Agora client
   client = AgoraRTC.createClient({ mode: "rtc", codec: "h264" });
@@ -115,29 +174,42 @@ async function join() {
     AgoraRTC.createMicrophoneAudioTrack(),
     AgoraRTC.createCameraVideoTrack()
   ]);
+  // localTracks.audioTrack.setVolume(1000);
+  // alert('adfa');
+
   options.type = "user";
-  socket.emit('checkRole', options);
+  options.reqAction = "checkRole";
+  //try {
+    const getUser = await getRequest(options);
+    // alert(JSON.stringify(userData.data));
+  // } catch (error) {
+  //   alert(error)
+  // }
+  
+  // alert('after');
+  // console.log(`User data ${JSON.stringify(userData)}`)
+ 
+  // return;
+  //socket.emit('checkRole', options);
   // play local video track
 
-  socket.on('roleRec', async function(userData){
-    options.userId = userData._id;
-    // alert(userData.role+userData.uid)
-    if(userData.role == 'host'){
-      $("#local_stream").html("");
-      localTracks.videoTrack.play("local_stream");
-      $("<div class='content'><h1>"+userData.name+" ("+userData.role+")</h1><p>User id = "+userData.uid+"</p></div>").appendTo("#local_stream");
-    }else{
-      $("<div class='remoteName'>"+userData.name+"</div><div class='player-remote' id= 'me'></div>").appendTo("#remote-playerlist");
-      localTracks.videoTrack.play("me");
-    }
-    try {
-      await client.publish(Object.values(localTracks));
-    } catch (error) {
-      alert(error)
-    }
+  //socket.on('roleRec', async function(userData){
+    // const userData = getUser.data;
     
-    // alert("publish success");
-  })
+
+    videoJoin(client, getUser.data, localTracks);
+
+
+    // if(userData.role == 'host'){
+    //   $("#local_stream").html("");
+    //   localTracks.videoTrack.play("local_stream");
+    //   $("<div class='content'><h1>"+userData.name+" ("+userData.role+")</h1><p>User id = "+userData.uid+"</p></div>").appendTo("#local_stream");
+    //   await client.publish(Object.values(localTracks));
+    // }else{
+    //   $("<div class='remoteName' id= 'me_"+userData.uid+"'>"+userData.name+"</div><div class='player-remote' id= 'me'></div>").appendTo("#remote-playerlist");
+    //   localTracks.videoTrack.play("me");
+    //   await client.publish(Object.values(localTracks));
+    // }
 
   
   // $("#local-player-name").text(`localVideo(${options.uid})`);
@@ -147,6 +219,30 @@ async function join() {
   console.log("publish success");
 }
 
+$("#micOff").click(function (e) {
+  localTracks.audioTrack.setVolume(0);
+  $("#micOff").hide();
+  $("#micOn").show();
+})
+$("#micOn").click(function (e) {
+  localTracks.audioTrack.setVolume(100);
+  $("#micOff").show();
+  $("#micOn").hide();
+})
+
+$("#cameraOff").click(function (e) {
+  localTracks.videoTrack.stop("local_stream");
+  $("#local_stream").hide();
+  $("#cameraOff").hide();
+  $("#cameraOn").show();
+})
+
+$("#cameraOn").click(function (e) {
+  localTracks.videoTrack.play("local_stream");
+  $("#local_stream").show();
+  $("#cameraOff").show();
+  $("#cameraOn").hide();
+})
 
 async function joinScreen() {
   localTracks.videoTrack.stop("local_stream");
@@ -169,10 +265,9 @@ async function joinScreen() {
   // localTracks.screenTrack.play("local_stream");
   options.type = "screen";
   // alert(options);
-  socket.emit('checkRole', options);
+  const getScreen = await getRequest(options);
   // play local video track
-
- socket.on('roleRecScreen', function(userData){
+ const userData = getScreen.data;
   //  alert(userData)
     options.userId = userData._id;
     if(userData.role == 'host'){
@@ -182,9 +277,7 @@ async function joinScreen() {
     }else{
       alert("You are not authorized to share your screen.")
     }
-  })
-
-  
+    
   // $("#local-player-name").text(`localVideo(${options.uid})`);
 
   // publish local tracks to channel
@@ -193,10 +286,20 @@ async function joinScreen() {
 }
 
 async function leaveScreenShare() {
-  localScreenTracks.videoTrack.stop();
-  localScreenTracks.videoTrack.close();
+  for (trackName in localScreenTracks) {
+    var track = localScreenTracks[trackName];
+    if(track) {
+      track.stop();
+      track.close();
+      localScreenTracks[trackName] = undefined;
+    }
+  }
+  // localScreenTracks.videoTrack.stop();
+  // localScreenTracks.videoTrack.close();
   options.type = "user";
-  socket.emit('leaveScreenShare', options);
+  options.reqAction = "leaveScreenShare";
+  const getUser = await getRequest(options);
+  videoJoin(client, getUser.data, localTracks);
   //localTracks.videoTrack.play("local_stream");
   // client.on("user-published", handleUserPublished);
   // remove remote users and player views
@@ -237,35 +340,44 @@ async function subscribe(user, mediaType) {
   // subscribe to a remote user
   await client.subscribe(user);
   const dataToSend = {
-    uid
+    uid,
+    reqAction: "checkRole"
   }
-  
-  socket.emit('checkRole', dataToSend);
-  socket.on('roleRecAck', function(userData){
+  // alert(dataToSend)
+  const getScreen = await getRequest(dataToSend);
+  const userData = getScreen.data;
+  // socket.on('roleRecAck', function(userData){
+    // alert(userData.role+userData.type+options.userId+userData._id)
     if(userData.role == 'host'){
       if(userData.type == "user"){
-        if(options.userId != userData._id){
+        if(options.uid != userData.uid){
           
-          $("#local_stream").show();
-          $("#local_stream_screen").hide();
+          // $("#local_stream").show();
+          // $("#local_stream_screen").hide();
+          $("#local_stream").html("");
           $("#local_stream").html("<div class='hund' id= 'remote_video_"+uid+"'></div><div class='content'><h1>"+userData.name+" ("+userData.role+")</h1><p>User Id = "+userData.uid+"</p></div>");
           user.videoTrack.play("remote_video_" + uid);
+          user.audioTrack.play();
         }
       }else{
         if(options.userId != userData._id){
+          // alert(uid+" and "+mediaType+" "+userData.screenid)
           // alert(options.userId +" " +userData._id);
           $("#local_stream").hide();
           $("#local_stream_screen").show();
+          $("#local_stream_screen").html("");
           $("#local_stream_screen").html("<div class='hund' id= 'remote_video_"+uid+"'></div><div class='content'><h1>"+userData.name+" ("+userData.role+")</h1><p>User Id = "+uid+"</p></div>");
           user.videoTrack.play("remote_video_" + uid);
+          user.audioTrack.play();
         }
       }
       // $("<div class='hund' id= 'remote_video_"+id+"'></div>").appendTo("#local_stream");
     }else{
-      $("<div class='remoteName'>"+userData.name+"</div><div class='player-remote' id= 'remote_video_"+uid+"'></div>").appendTo("#remote-playerlist");
+      $("<div class='remoteName' id='player-wrapper-"+uid+"'>"+userData.name+"</div><div class='player-remote' id= 'remote_video_"+uid+"'></div>").appendTo("#remote-playerlist");
       user.videoTrack.play("remote_video_" + uid);
+      user.audioTrack.play();
     }
-  })
+  // })
   console.log("subscribe success");
   // if (mediaType !== 'audio') {
   //   const player = $(`
@@ -284,6 +396,7 @@ async function subscribe(user, mediaType) {
 
 function handleUserPublished(user, mediaType) {
   const id = user.uid;
+  
   remoteUsers[id] = user;
   subscribe(user, mediaType);
 }
@@ -292,18 +405,17 @@ function handleUserUnpublished(user) {
   const id = user.uid;
   let uidData = { uid: id }
   socket.emit("unpublised", uidData);
-  // if(id != options.uid){
-    
-    
-    
-  // }
-  
   delete remoteUsers[id];
   $(`#player-wrapper-${id}`).remove();
+  $(`#me_${id}`).remove();
+  $(`#remote_video_${id}`).remove();
 }
 
 socket.on("unpublisedAck", (data)=> {
   // alert("unpublished");
     $("#local_stream").show();
+    $("#local_stream_screen").html("");
     $("#local_stream_screen").hide();
 })
+
+

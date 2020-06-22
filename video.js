@@ -50,9 +50,9 @@ async function myFunction(){
     // options.token = $("#token").val();
     // options.channel = $("#channel").val();
     
-    options.appid = urlParams.get("appid");
-    options.channel = urlParams.get("channel");
-    options.token = urlParams.get("token");
+    options.appid = "141d75a8f7d24d5cb92d9d6ff6a41aa7";
+    options.channel = "navishk";
+    options.token = "006141d75a8f7d24d5cb92d9d6ff6a41aa7IAAYNbrMDF/6n3QWVgmLeA9qxYjxPheSbjEleLQSDETVSakWApQAAAAAEADZy+G7/lPqXgEAAQD+U+pe";
     await join();
   } catch (error) {
     //console.log("error", error);
