@@ -368,7 +368,7 @@ async function subscribe(user, mediaType) {
           $("#local_stream_screen").html("");
           $("#local_stream_screen").html("<div class='hund' id= 'remote_video_"+uid+"'></div><div class='content'><h1>"+userData.name+" ("+userData.role+")</h1><p>User Id = "+uid+"</p></div>");
           user.videoTrack.play("remote_video_" + uid);
-          user.audioTrack.play();
+          //user.audioTrack.play();
         }
       }
       // $("<div class='hund' id= 'remote_video_"+id+"'></div>").appendTo("#local_stream");
