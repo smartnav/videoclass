@@ -116,7 +116,7 @@ $("#join").click(async function (e) {
     // options.channel = $("#channel").val();
     options.appid = "141d75a8f7d24d5cb92d9d6ff6a41aa7";
     options.channel = "navishk";
-    options.token = "006141d75a8f7d24d5cb92d9d6ff6a41aa7IABSO5HUSEygwi3gU2WujBH0WvD1wEFb9jj+68op18BPyKkWApQAAAAAEADlHsFUwJnzXgEAAQDAmfNe";
+    options.token = "006141d75a8f7d24d5cb92d9d6ff6a41aa7IABLwYtaYAhDwvwn39CV+v6UwV7CoeW9tk+BjlEKXzsFUakWApQAAAAAEACzAjOTXkv3XgEAAQBfS/de";
     await join();
     if(options.token) {
       $("#success-alert-with-token").css("display", "block");
