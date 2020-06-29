@@ -51,6 +51,7 @@ $(async() => {
     var urlParams = new URL(location.href).searchParams;
     options.role =  urlParams.get("role");
     options.name =  urlParams.get("name")
+
     if (options.appid && options.channel && options.token) {
         await join();
     }
@@ -88,6 +89,7 @@ const videoJoin = async(client, userData, localTracks) => {
     options.userId = userData._id;
     if(userData.role == 'host'){
       $("#local_stream").html("");
+      $("#hostName").html(userData.name);
       $("#local_stream").html("<div class='centerAlign' id='remote_video_"+userData.uid+"'></div>");
       localTracks.videoTrack.play("remote_video_"+userData.uid);
       await client.publish(Object.values(localTracks));
@@ -99,7 +101,7 @@ const videoJoin = async(client, userData, localTracks) => {
       <div class="thumbnail">
           <div class="videoLoader" id="video-loader${userData.uid}"></div>
           <div class="videoNotFound" id="video-not-found${userData.uid}" style="display: none;">
-              <span class="small">JD</span>
+              <span class="small" id="videoNotFound${userData.uid}">JD</span>
           </div>
           <div class="instructorName" id="only-name${userData.uid}">
               ${userData.name}
@@ -208,9 +210,11 @@ const videoJoin = async(client, userData, localTracks) => {
               //alert('inside audio');
               user.audioTrack.play();
               $(".me").show();
+              $("#me").html((userData.name.substring(0, 2)).toUpperCase());
             }else{
               $(".me").hide();
               $("#local_stream").html("");
+              $("#hostName").html(userData.name);
               $("#local_stream").html("<div class='centerAlign' id='remote_video_"+uid+"'></div>");
               user.videoTrack.play("remote_video_" + uid);
               user.audioTrack.play();
@@ -235,7 +239,7 @@ const videoJoin = async(client, userData, localTracks) => {
         <div class="thumbnail">
           <div class="videoLoader" id="video-loader${userData.uid}"></div>
           <div class="videoNotFound" id="video-not-found${userData.uid}" style="display: none;">
-              <span class="small">JD</span>
+              <span class="small" id="videoNotFound${userData.uid}">JD</span>
           </div>
           <div class="instructorName" id="only-name${userData.uid}">
               ${userData.name}
@@ -254,7 +258,6 @@ const videoJoin = async(client, userData, localTracks) => {
   }
   
   function handleUserPublished(user, mediaType) {
-    console.log("-------------------------------------------------------------------------------------------------------")
     const id = user.uid;
     remoteUsers[id] = user;
     subscribe(user, mediaType);
@@ -272,16 +275,15 @@ const videoJoin = async(client, userData, localTracks) => {
     const getUser = await getRequest(uidData);
     // alert('getUser.data.type'+getUser.data.type)
     if(getUser.data.type == 'user'){
-      
       if(options.userId != getUser.data._id){
         $("#local_stream").show();
         $("#local_stream_screen").html("");
         $("#local_stream_screen").hide();
+        
       }
-      
     }
 
-    $(`#player-wrapper-${id}`).remove();
+    $(`#player-wrapper${id}`).remove();
     $(`#me_${id}`).remove();
     $(`#remote_video_${id}`).remove();
     //$("#local_stream").show();
@@ -322,14 +324,22 @@ const videoJoin = async(client, userData, localTracks) => {
   const buttonFun = async(type) => {
       switch (type) {
         case "cameraOff":
-          localTracks.videoTrack.stop("remote_video_"+options.uid);
           
-          // localTracks.videoTrack.close("remote_video_"+options.uid);
-          await client.unpublish(Object.values(localTracks));
-          await client.publish(localTracks.audioTrack);
-          $(".me").show();
-          $("#cameraOn").hide();
-          $("#cameraOff").show();
+          if(options.role == "host"){
+            localTracks.videoTrack.stop("remote_video_"+options.uid);
+            await client.unpublish(Object.values(localTracks));
+            await client.publish(localTracks.audioTrack);
+            $(".me").show();
+            $("#me").html((options.name.substring(0, 2)).toUpperCase());
+            $("#cameraOn").hide();
+            $("#cameraOff").show();
+          }else{
+            // $("#video-not-found"+options.uid).show();
+            // $("#videoNotFound"+options.uid).html((options.name.substring(0, 2)).toUpperCase());
+            alert("Sorry, you don't have permission to disable video.")
+          }
+          
+          
           // const copyLocalTracks = Object.assign({}, localTracks);
           // copyLocalTracks.videoTrack = null;
           // await client.publish(Object.values(copyLocalTracks));
@@ -355,9 +365,13 @@ const videoJoin = async(client, userData, localTracks) => {
           $("#micOff").hide();
           break;
         case "shareScreenOn":
+          if(options.role == "host"){
           $("#shareScreenOff").show();
           $("#shareScreenOn").hide();
           startScreenCall();
+          }else{
+            alert("Sorry, you don't have permission to share your screen.")
+          }
           break;
         case "shareScreenOff":
           localScreenTracks.videoTrack.stop();
