@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Classroom</title>
+        <link rel="stylesheet" href="css/animation.css" />
+        <link rel="stylesheet" href="css/style.css" />
+    </head>
+    <body>
+        <div class="classroomContainer">
+            <div class="video">
+                <h1 class="animate__animated animate__bounce">
+                    Classroom Live Session Beta
+                </h1>
+                <div class="imgContainer animate__animated animate__fadeIn">
+                    <div class="videoLoader"></div>
+                    <div class="videoNotFound me" style="display: none;">
+                        <span>JD</span>
+                    </div>
+
+                    <div class="instructorName" id="hostName">
+                        Jone Doe
+                    </div>
+
+                    <div class="liked" id="liked">
+                        <img src="img/icons/like.png" alt="like icon" />
+                    </div>
+
+                    <div class="screen" id="local_stream" style="height: 480px;">
+                        <img src="img/screen.PNG" alt="Desktop Screen" />
+                    </div>
+                    <div class="screen" id="local_stream_screen" style="height: 480px; display: none;">
+                        <img src="img/screen.PNG" alt="Desktop Screen" />
+                    </div>
+                    <div class="hoverMenu">
+                        <div class="raiseHand" id="likeVideo">
+                            <img src="img/icons/like.png" alt="like icon" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="videoMenu">
+                    <!-- icon start -->
+                    <div class="cemera">
+                        <img src="img/icons/camOn.png" onclick="buttonFun('cameraOff')" id="cameraOn" alt="camera on" />
+                        <img
+                            src="img/icons/camOff.png"
+                            alt="camera off"
+                            style="display: none;"
+                            onclick="buttonFun('cameraOn')"
+                            id="cameraOff"
+                        />
+                    </div>
+                    <!-- icon end -->
+
+                    <!-- icon start -->
+                    <div class="mic">
+                        <img src="img/icons/micOn.png" alt="mic on" id="micOn" onclick="buttonFun('micOff')" />
+                        <img
+                            src="img/icons/micOff.png"
+                            alt="mic off"
+                            style="display: none;"
+                            id="micOff"
+                            onclick="buttonFun('micOn')"
+                        />
+                    </div>
+                    <!-- icon end -->
+
+                    <!-- icon start -->
+                    <div class="share">
+                        <img src="img/icons/share.png" alt="share screen" id="shareScreenOn" onclick="buttonFun('shareScreenOn')" />
+                        <img 
+                            src="img/icons/shareOff.png" 
+                            alt="stop share screen" 
+                            id="shareScreenOff" 
+                            style="display: none;" 
+                            onclick="buttonFun('shareScreenOff')"
+                        />
+                    </div>
+                    <!-- icon end -->
+
+                    <!-- icon start -->
+                    <!-- <div class="rec">
+                        <img src="img/icons/rec.png" alt="mic on" />
+                    </div> -->
+                    <!-- icon end -->
+
+                    <!-- icon start -->
+                    <div class="chat">
+                        <img src="img/icons/chat.png" alt="mic on" />
+                    </div>
+                    <!-- icon end -->
+
+                    <!-- icon start -->
+                    <!-- <div class="people">
+                        <img src="img/icons/people.png" alt="mic on" />
+                    </div> -->
+                    <!-- icon end -->
+
+                    <!-- icon start -->
+                    <div class="leave">
+                        <img src="img/icons/leave.png" alt="Leave" id="leave" onclick="buttonFun('leave')" />
+                    </div>
+                    <!-- icon end -->
+                </div>
+            </div>
+            <div class="chat">
+                <!--                 <div class="userIconBox">
+                    <div class="userIcon">
+                        <img src="img/boy.png" alt="boy image" />
+                    </div>
+                </div> -->
+
+                <div class="instructorIn">
+                    <h3 class="animate__animated animate__slideInLeft">
+                        Instructor In ClassRoom Live
+                    </h3>
+                    <!-- card start -->
+                    <div class="card animate__animated animate__slideInLeft">
+                        <div class="instructorImgBox">
+                            <div class="img">
+                                <img src="img/girl.png" alt=" Image" />
+                            </div>
+                        </div>
+                        <div class="infoBox">
+                            <div>Annet James</div>
+                            <p>Computer Science Instructor</p>
+                        </div>
+                    </div>
+                    <!-- card end -->
+                </div>
+
+                <div class="suggestedVideos" id="remote-playerlist">
+                    <h3 class="animate__animated animate__slideInLeft">
+                        Students List
+                    </h3>
+                    <!-- suggestion video box end -->
+
+                    <!-- suggestion video box end -->
+                </div>
+            </div>
+        </div>
+    </body>
+    <script src="js/jquery-3.5.1.min.js"></script>
+    <script src="https://download.agora.io/sdk/web/AgoraRTC_N.js"></script>
+    <script src="js/script.js"></script>
+</html>

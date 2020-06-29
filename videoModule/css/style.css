@@ -1,0 +1,556 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap");
+:root {
+    --gray: #a7a4a4;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    color: #3c3b3b;
+}
+body {
+    font-family: "Montserrat", sans-serif;
+    min-height: 100vh;
+    background-color: #e6e6e6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.container {
+    width: 81%;
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 0 20px 0 #cacaca;
+    padding: 75px;
+    text-align: center;
+}
+.container h1 {
+    font-size: 75px;
+    font-weight: 300;
+    margin: 0px auto 75px;
+    padding: 0;
+    line-height: 55px;
+}
+.buttonCon {
+    display: grid;
+    grid-gap: 30px;
+    grid-template-columns: 1fr 1fr;
+    width: 430px;
+    margin: auto;
+}
+.buttonCon h2 {
+    font-weight: 400;
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+/* index page animation delay start */
+.buttonCon h2 {
+    animation-delay: 0.5s;
+}
+.buttonCon .left a,
+.buttonCon .right a {
+    animation-delay: 1.25s;
+}
+
+/* index page animation delay end */
+
+.buttonCon .left a,
+.buttonCon .right a {
+    width: 200px;
+    height: 175px;
+    font-size: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+    text-decoration: none;
+    padding: 40px 50px;
+}
+.buttonCon a img {
+    height: 100%;
+    width: 100%;
+}
+
+.buttonCon .left a {
+    background-image: linear-gradient(45deg, #4c9cff, #f15ec4);
+}
+.buttonCon .right a {
+    background-image: linear-gradient(45deg, #f15ec4, #4c9cff);
+}
+
+@media screen and (max-width: 710px) {
+    .buttonCon .left a,
+    .buttonCon .right a {
+        width: 150px;
+        height: 150px;
+        margin: auto;
+    }
+    .buttonCon h2 {
+        font-size: 20px;
+    }
+    .container h1 {
+        font-size: 65px;
+    }
+    .buttonCon {
+        width: 350px;
+    }
+    .container {
+        width: 95%;
+        padding: 50px;
+    }
+}
+@media screen and (max-width: 425px) {
+    .buttonCon {
+        grid-template-columns: 1fr;
+    }
+    .container h1 {
+        font-size: 50px;
+        margin-bottom: 50px;
+    }
+    .buttonCon {
+        width: 200px;
+    }
+    .container {
+        width: 100%;
+        border-radius: 0;
+    }
+}
+/* classroom css start */
+
+.classroomContainer {
+    width: 95%;
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 0 20px 0 #cacaca;
+    padding: 25px;
+    display: grid;
+    grid-template-columns: 4fr 1fr;
+    grid-gap: 30px;
+    margin: 30px auto;
+}
+
+.classroomContainer h1 {
+    font-size: 40px;
+    font-weight: 400;
+    margin: 0px auto 15px;
+    padding: 0;
+    text-align: center;
+}
+
+.video {
+    position: relative;
+}
+
+.video .imgContainer .screen img {
+    width: 100%;
+    height: 100%;
+}
+.video,
+.video .imgContainer,
+.chat,
+.instructorIn {
+    width: 100%;
+}
+
+.video .imgContainer .screen {
+    display: flex;
+    background-color: #595959;
+}
+
+.video .imgContainer .liked {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.video .imgContainer .liked img {
+    height: 0px;
+    width: 0px;
+}
+.video .imgContainer .liked img.likeing {
+    height: 0px;
+    width: 0px;
+    animation: likeing 1s ease 1;
+}
+@keyframes likeing {
+    0% {
+        height: 0px;
+        width: 0px;
+        opacity: 1;
+    }
+    70% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        height: 150px;
+        width: 150px;
+    }
+}
+
+.video .imgContainer {
+    position: relative;
+    overflow: hidden;
+}
+.video .imgContainer .instructorName {
+    position: absolute;
+    right: 15px;
+    background: rgba(0, 0, 0, 0.4);
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 0 0 10px 10px;
+}
+.video .hoverMenu {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.4);
+    bottom: -60px;
+    height: 60px;
+    right: 15px;
+    border-radius: 10px 10px 0 0;
+    font-size: 35px;
+    transition: 0.5s;
+}
+
+.video .imgContainer:hover .hoverMenu {
+    bottom: 0;
+}
+.video .hoverMenu > div {
+    height: 100%;
+    width: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px 5px 0 0;
+    padding: 13px;
+    cursor: pointer;
+}
+.video .hoverMenu > div img {
+    width: 100%;
+}
+.video .hoverMenu i {
+    color: #fff;
+}
+
+.video .videoMenu {
+    width: 650px;
+    border-radius: 0 0 10px 10px;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-gap: 20px;
+    margin: 25px auto 0;
+}
+.video .videoMenu > div {
+    height: 75px;
+    padding: 23px;
+    border-radius: 10px;
+    background: #595959;
+    cursor: pointer;
+}
+.video .videoMenu > div img {
+    width: 100%;
+}
+
+.videoLoader {
+    position: absolute;
+    background: #595959;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+.videoLoader::after {
+    content: "";
+    height: 70px;
+    width: 70px;
+    border-right: 5px solid #fff;
+    display: inline-block;
+    border-radius: 100px;
+    animation: videoLoading 1s linear infinite;
+}
+
+@keyframes videoLoading {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.videoNotFound {
+    position: absolute;
+    background: #595959;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+.videoNotFound span {
+    height: 75px;
+    width: 75px;
+    border-radius: 100px;
+    background: #ccc;
+    text-align: center;
+    line-height: 75px;
+    font-size: 30px;
+}
+
+.videoNotFound span.small {
+    height: 50px;
+    width: 50px;
+    line-height: 50px;
+    font-size: 20px;
+}
+
+.userIconBox {
+    direction: rtl;
+}
+.userIcon {
+    height: 50px;
+    width: 50px;
+    overflow: hidden;
+    border-radius: 50%;
+    background: orange;
+    padding: 5px 5px 0;
+}
+.userIcon img,
+.instructorIn .instructorImgBox .img img,
+.privateChat .imgBox .img img {
+    height: 100%;
+    width: 100%;
+}
+.instructorIn {
+    margin-top: 60px;
+    overflow-x: hidden;
+}
+.instructorIn h3 {
+    font-weight: 400;
+    font-size: 16px;
+}
+.instructorIn .card {
+    box-shadow: 0 0 7px 0 #cacacaad;
+    border-radius: 100px;
+    margin: 15px 0;
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    height: 52px;
+    border: 1px solid #cacacaad;
+}
+.instructorIn .instructorImgBox .img {
+    height: 50px;
+    width: 50px;
+    overflow: hidden;
+    border-radius: 50%;
+    background: orange;
+    padding: 5px 5px 0;
+}
+
+.instructorIn .infoBox {
+    height: 50px;
+    margin: 8px 0 0 10px;
+}
+.instructorIn .infoBox div {
+    font-size: 13px;
+    font-weight: 400;
+}
+.instructorIn .infoBox p {
+    /* font-weight: 300; */
+    font-size: 10px;
+    color: var(--gray);
+}
+
+.suggestedVideos {
+    margin-top: 10px;
+    overflow-x: hidden;
+}
+.suggestedVideos h3 {
+    font-weight: 400;
+    font-size: 16px;
+}
+
+.suggestedVideoBox {
+    margin-top: 15px;
+    border: 1px solid #e5e5e5;
+    padding: 5px;
+}
+.suggestedVideoBox .thumbnail {
+    width: 100%;
+    position: relative;
+}
+.suggestedVideoBox .thumbnail img {
+    width: 100%;
+}
+.suggestedVideoBox .thumbnail .instructorName {
+    position: absolute;
+    right: 15px;
+    background: rgba(0, 0, 0, 0.4);
+    color: #fff;
+    padding: 0px 5px;
+    border-radius: 0 0 5px 5px;
+    font-size: 14px;
+}
+
+/* classroom animation delay start */
+.instructorIn h3 {
+    animation-delay: 0.75s;
+}
+.instructorIn .card {
+    animation-delay: 1s;
+}
+.suggestedVideos h3 {
+    animation-delay: 1.25s;
+}
+.suggestedVideos h3 {
+    animation-delay: 1.25s;
+}
+.suggestedVideos .suggestedVideoBox {
+    animation-delay: var(--animationDelay);
+}
+.privateChat {
+    overflow-x: hidden;
+}
+
+.privateChat h3 {
+    animation-delay: 1.25s;
+}
+.privateChat > .card:nth-child(2) {
+    animation-delay: 1.5s;
+}
+.privateChat > .card:nth-child(3) {
+    animation-delay: 1.75s;
+}
+.privateChat > .card:nth-child(4) {
+    animation-delay: 2s;
+}
+.privateChat > .card {
+    box-shadow: 0 0 7px 0 #cacacaad;
+    border-radius: 50px;
+    margin: 15px 0;
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    border: 1px solid #cacacaad;
+}
+.privateChat .imgBox .img {
+    height: 50px;
+    width: 50px;
+    overflow: hidden;
+    border-radius: 50%;
+    background: orange;
+    padding: 5px 5px 0;
+}
+.privateChat .infoBox {
+    margin: 2px 5px 0 4px;
+    font-size: 10px;
+}
+.privateChat .infoBox .nameTimeBox {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    grid-gap: 5px;
+}
+.privateChat .infoBox .nameTimeBox div {
+    height: 11px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.privateChat .infoBox .nameTimeBox p {
+    border-left: 1px solid #a7a4a4;
+    padding-left: 3px;
+    color: #a7a4a4;
+}
+.privateChat .infoBox .message {
+    font-size: 9px;
+    border-top: 1px dotted #a7a4a4;
+    margin-top: 2px;
+}
+@media screen and (max-width: 768px) {
+    .video .videoMenu {
+        width: 100%;
+        grid-template-columns: repeat(6, 1fr);
+    }
+    .video .videoMenu > div {
+        height: 100px;
+        padding: 30px;
+    }
+    .classroomContainer {
+        grid-template-columns: 1fr;
+    }
+    .classroomContainer h1 {
+        font-size: 28px;
+    }
+    .chat {
+        border-top: 1px dashed #ccc;
+        padding-top: 30px;
+    }
+    .instructorIn .card {
+        grid-template-columns: 10% 90%;
+    }
+}
+@media screen and (max-width: 425px) {
+    .video .videoMenu {
+        grid-template-columns: repeat(4, 1fr);
+    }
+    .video .videoMenu > div {
+        height: 60px;
+        padding: 20px;
+    }
+    .classroomContainer h1 {
+        font-size: 20px;
+    }
+    .instructorIn .card {
+        grid-template-columns: 18% 82%;
+    }
+    .chat {
+        padding-top: 10px;
+    }
+    .classroomContainer {
+        grid-gap: 10px;
+    }
+    .instructorIn {
+        margin-top: 20px;
+    }
+    .suggestedVideos {
+        margin-top: 40px;
+    }
+    .buttonCon a img {
+        height: 80%;
+    }
+    .video .imgContainer .screen img {
+        height: 200px;
+    }
+}
+
+
+.centerAlign {
+    background-color: #000000;
+    width: 640px;
+    height: 480px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .centerAlignScreen {
+    background-color: #000000;
+    width: 850px;
+    height: 480px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .screenShare {
+    position: absolute;
+    background: #595959;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}

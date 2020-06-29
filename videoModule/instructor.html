@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Classroom</title>
+        <link rel="stylesheet" href="css/animation.css" />
+        <link rel="stylesheet" href="css/style.css" />
+    </head>
+    <body>
+        <div class="classroomContainer">
+            <div class="video">
+                <h1 class="animate__animated animate__bounce">
+                    Classroom Live Session Beta
+                </h1>
+                <div class="imgContainer animate__animated animate__fadeIn">
+                    <div class="videoLoader"></div>
+
+                    <div class="videoNotFound" style="display: none;">
+                        <span>JD</span>
+                    </div>
+
+                    <div class="instructorName">
+                        Jone Doe
+                    </div>
+
+                    <div class="liked" id="liked">
+                        <img src="img/icons/like.png" alt="like icon" />
+                    </div>
+
+                    <div class="screen">
+                        <img src="img/screen.PNG" alt="Desktop Screen" />
+                    </div>
+                    <div class="hoverMenu">
+                        <div class="raiseHand" id="likeVideo">
+                            <img src="img/icons/like.png" alt="like icon" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="videoMenu">
+                    <!-- icon start -->
+                    <div class="cemera">
+                        <img src="img/icons/camOn.png" alt="camera on" />
+                        <img
+                            src="img/icons/camOff.png"
+                            alt="camera off"
+                            style="display: none;"
+                        />
+                    </div>
+                    <!-- icon end -->
+
+                    <!-- icon start -->
+                    <div class="mic">
+                        <img src="img/icons/micOn.png" alt="mic on" />
+                        <img
+                            src="img/icons/micOff.png"
+                            alt="mic off"
+                            style="display: none;"
+                        />
+                    </div>
+                    <!-- icon end -->
+
+                    <!-- icon start -->
+                    <div class="share">
+                        <img src="img/icons/share.png" alt="mic on" />
+                    </div>
+                    <!-- icon end -->
+
+                    <!-- icon start -->
+                    <div class="rec">
+                        <img src="img/icons/rec.png" alt="mic on" />
+                    </div>
+                    <!-- icon end -->
+
+                    <!-- icon start -->
+                    <div class="chat">
+                        <img src="img/icons/chat.png" alt="mic on" />
+                    </div>
+                    <!-- icon end -->
+
+                    <!-- icon start -->
+                    <div class="people">
+                        <img src="img/icons/people.png" alt="mic on" />
+                    </div>
+                    <!-- icon end -->
+
+                    <!-- icon start -->
+                    <div class="leave">
+                        <img src="img/icons/leave.png" alt="mic on" />
+                    </div>
+                    <!-- icon end -->
+                </div>
+            </div>
+            <div class="chat">
+                <!--                 <div class="userIconBox">
+                    <div class="userIcon">
+                        <img src="img/boy.png" alt="boy image" />
+                    </div>
+                </div> -->
+
+                <div class="instructorIn">
+                    <h3 class="animate__animated animate__slideInLeft">
+                        Instructor In ClassRoom Live
+                    </h3>
+                    <!-- card start -->
+                    <div class="card animate__animated animate__slideInLeft">
+                        <div class="instructorImgBox">
+                            <div class="img">
+                                <img src="img/girl.png" alt=" Image" />
+                            </div>
+                        </div>
+                        <div class="infoBox">
+                            <div>Annet James</div>
+                            <p>Computer Science Instructor</p>
+                        </div>
+                    </div>
+                    <!-- card end -->
+                </div>
+
+                <div class="privateChat">
+                    <h3 class="animate__animated animate__slideInLeft">
+                        Private Group Chat
+                    </h3>
+
+                    <!-- card start -->
+                    <div
+                        id="card"
+                        class="card animate__animated animate__slideInLeft"
+                    >
+                        <div class="imgBox">
+                            <div class="img">
+                                <img src="img/girl.png" alt="Student Image" />
+                            </div>
+                        </div>
+                        <div class="infoBox">
+                            <div class="nameTimeBox">
+                                <div>Annet James</div>
+                                <p>Posted 4 mins ago</p>
+                            </div>
+                            <div class="message">
+                                Thanks Jane, this is correct. it means, it has
+                                not been initialized with no values
+                            </div>
+                        </div>
+                    </div>
+                    <!-- card end -->
+
+                    <!-- card start -->
+                    <div
+                        id="card"
+                        class="card animate__animated animate__slideInLeft"
+                    >
+                        <div class="imgBox">
+                            <div class="img">
+                                <img src="img/boy.png" alt="Student Image" />
+                            </div>
+                        </div>
+                        <div class="infoBox">
+                            <div class="nameTimeBox">
+                                <div>Jane</div>
+                                <p>Posted 4 mins ago</p>
+                            </div>
+                            <div class="message">
+                                The "[]" Means an empty array
+                            </div>
+                        </div>
+                    </div>
+                    <!-- card end -->
+
+                    <!-- card start -->
+                    <div
+                        id="card"
+                        class="card animate__animated animate__slideInLeft"
+                    >
+                        <div class="imgBox">
+                            <div class="img">
+                                <img
+                                    src="img/girl.png"
+                                    alt="Instructor Image"
+                                />
+                            </div>
+                        </div>
+                        <div class="infoBox">
+                            <div class="nameTimeBox">
+                                <div>Julia</div>
+                                <p>Posted 4 mins ago</p>
+                            </div>
+                            <div class="message">
+                                Could you please explain the "[]"
+                            </div>
+                        </div>
+                    </div>
+                    <!-- card end -->
+                </div>
+            </div>
+        </div>
+    </body>
+    <script src="js/jquery-3.5.1.min.js"></script>
+    <script src="js/script.js"></script>
+</html>
