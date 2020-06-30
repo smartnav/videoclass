@@ -235,7 +235,7 @@ const videoJoin = async(client, userData, localTracks) => {
       }else{
       let student_stream = $(`<div
         class="suggestedVideoBox animate__animated animate__slideInLeft"
-        style="--animationDelay: 1.75s;" id="player-wrapper${userData.uid}">
+        style="--animationDelay: 0.75s;" id="player-wrapper${userData.uid}">
         <div class="thumbnail">
           <div class="videoLoader" id="video-loader${userData.uid}"></div>
           <div class="videoNotFound" id="video-not-found${userData.uid}" style="display: none;">
@@ -249,6 +249,8 @@ const videoJoin = async(client, userData, localTracks) => {
         </div>`
         )
         $("#remote-playerlist").append(student_stream);
+        const audio = new Audio("audio/doorbell.mp3");
+        audio.play();
         //$("<div class='remoteName' id='player-wrapper-"+uid+"'>"+userData.name+"</div><div class='player-remote' id= 'remote_video_"+uid+"'></div>").appendTo("#remote-playerlist");
         user.videoTrack.play("remote_video_" + uid);
         user.audioTrack.play();
