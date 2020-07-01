@@ -14,7 +14,7 @@ var localScreenTracks = {
     appid: "141d75a8f7d24d5cb92d9d6ff6a41aa7",
     channel: "navishk",
     uid: null,
-    token: "006141d75a8f7d24d5cb92d9d6ff6a41aa7IADkWlw0lw6QaK2GTaOLYiFbo9GCZj63gvCRJ9Z89LM61KkWApQAAAAAEACHUN8cMkn7XgEAAQAySfte"
+    token: "006141d75a8f7d24d5cb92d9d6ff6a41aa7IAABIL5yiMSiwR6NzU9v+6SHHoHnntHnmVzeWgHrwvAIfKkWApQAAAAAEADYGlqGuI39XgEAAQC5jf1e"
   };
 
 $(async() => {
@@ -61,8 +61,8 @@ $(async() => {
 
 
 
-// const ServerURL = 'http://localhost:4000/users';
-const ServerURL = 'https://socket.kidatcode.com/users';
+const ServerURL = 'http://localhost:4000/users';
+// const ServerURL = 'https://socket.kidatcode.com/users';
 const getRequest = async(data) => {
   const route = `${ServerURL}/getUserInfo`;
   return new Promise((resolve, reject) => {
