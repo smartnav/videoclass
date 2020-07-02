@@ -8,7 +8,7 @@
         <link rel="stylesheet" href="css/style.css" />
     </head>
     <body>
-        <audio id="bear" preload="auto" src ="audio/doorbell.mp3"></audio> 
+        <audio id="bear" preload="auto" src="audio/doorbell.mp3"></audio>
         <div class="classroomContainer">
             <div class="video">
                 <h1 class="animate__animated animate__bounce">
@@ -28,10 +28,18 @@
                         <img src="img/icons/like.png" alt="like icon" />
                     </div>
 
-                    <div class="screen" id="local_stream" style="height: 480px;">
+                    <div
+                        class="screen"
+                        id="local_stream"
+                        style="height: 480px;"
+                    >
                         <img src="img/screen.PNG" alt="Desktop Screen" />
                     </div>
-                    <div class="screen" id="local_stream_screen" style="height: 480px; display: none;">
+                    <div
+                        class="screen"
+                        id="local_stream_screen"
+                        style="height: 480px; display: none;"
+                    >
                         <img src="img/screen.PNG" alt="Desktop Screen" />
                     </div>
                     <div class="hoverMenu">
@@ -44,7 +52,12 @@
                 <div class="videoMenu">
                     <!-- icon start -->
                     <div class="cemera">
-                        <img src="img/icons/camOn.png" onclick="buttonFun('cameraOff')" id="cameraOn" alt="camera on" />
+                        <img
+                            src="img/icons/camOn.png"
+                            onclick="buttonFun('cameraOff')"
+                            id="cameraOn"
+                            alt="camera on"
+                        />
                         <img
                             src="img/icons/camOff.png"
                             alt="camera off"
@@ -57,7 +70,12 @@
 
                     <!-- icon start -->
                     <div class="mic">
-                        <img src="img/icons/micOn.png" alt="mic on" id="micOn" onclick="buttonFun('micOff')" />
+                        <img
+                            src="img/icons/micOn.png"
+                            alt="mic on"
+                            id="micOn"
+                            onclick="buttonFun('micOff')"
+                        />
                         <img
                             src="img/icons/micOff.png"
                             alt="mic off"
@@ -70,48 +88,64 @@
 
                     <!-- icon start -->
                     <div class="share">
-                        <img src="img/icons/share.png" alt="share screen" id="shareScreenOn" onclick="buttonFun('shareScreenOn')" />
-                        <img 
-                            src="img/icons/shareOff.png" 
-                            alt="stop share screen" 
-                            id="shareScreenOff" 
-                            style="display: none;" 
+                        <img
+                            src="img/icons/share.png"
+                            alt="share screen"
+                            id="shareScreenOn"
+                            onclick="buttonFun('shareScreenOn')"
+                        />
+                        <img
+                            src="img/icons/shareOff.png"
+                            alt="stop share screen"
+                            id="shareScreenOff"
+                            style="display: none;"
                             onclick="buttonFun('shareScreenOff')"
                         />
                     </div>
                     <!-- icon end -->
 
                     <!-- icon start -->
-                    <div class="rec">
-                        <img src="img/icons/rec.png" alt="mic on" />
+                    <div class="notification">
+                        <div class="count">0</div>
+                        <img
+                            src="img/icons/notification.png"
+                            alt="notification"
+                        />
                     </div>
                     <!-- icon end -->
 
                     <!-- icon start -->
-                    <div class="chat">
+                    <div class="chat" id="toggleChatBox">
                         <img src="img/icons/chat.png" alt="mic on" />
                     </div>
                     <!-- icon end -->
 
                     <!-- icon start -->
-                    <div class="people">
+                    <div class="people" id="togglePeopleBox">
                         <img src="img/icons/people.png" alt="mic on" />
                     </div>
                     <!-- icon end -->
 
                     <!-- icon start -->
                     <div class="leave">
-                        <img src="img/icons/leave.png" alt="Leave" id="leave" onclick="buttonFun('leave')" />
+                        <img
+                            src="img/icons/leave.png"
+                            alt="Leave"
+                            id="leave"
+                            onclick="buttonFun('leave')"
+                        />
                     </div>
                     <!-- icon end -->
                 </div>
             </div>
-            <div class="chat">
-                <!--                 <div class="userIconBox">
+            <div class="sideBar">
+                <!--                 
+                <div class="userIconBox">
                     <div class="userIcon">
                         <img src="img/boy.png" alt="boy image" />
                     </div>
-                </div> -->
+                </div> 
+                -->
 
                 <div class="instructorIn">
                     <h3 class="animate__animated animate__slideInLeft">
@@ -141,9 +175,173 @@
                     <!-- suggestion video box end -->
                 </div>
             </div>
+
+            <div class="chatBox showPeopleList">
+                <div class="close">
+                    x
+                </div>
+                <div class="header">
+                    <div id="people">People</div>
+                    <div id="chat">Chat</div>
+                </div>
+                <div class="peopleList">
+                    <div class="peoples">
+                        <!-- person container start -->
+                        <div class="person">
+                            <div class="icon">
+                                <img src="img/boy.png" alt="" />
+                            </div>
+                            <div class="name">John Doe</div>
+                            <div class="camera">
+                                <img
+                                    src="img/icons/camOn.png"
+                                    alt="Camera On"
+                                />
+                            </div>
+                            <div class="mic">
+                                <img src="img/icons/micOn.png" alt="Mic On" />
+                            </div>
+                        </div>
+                        <!-- person container end -->
+
+                        <!-- person container start -->
+                        <div class="person">
+                            <div class="icon">
+                                <img src="img/girl.png" alt="" />
+                            </div>
+                            <div class="name">lorem Doe</div>
+                            <div class="camera">
+                                <img
+                                    src="img/icons/camOff.png"
+                                    alt="Camera Off"
+                                />
+                            </div>
+                            <div class="mic">
+                                <img src="img/icons/micOn.png" alt="Mic On" />
+                            </div>
+                        </div>
+                        <!-- person container end -->
+
+                        <!-- person container start -->
+                        <div class="person">
+                            <div class="icon">
+                                <img src="img/boy.png" alt="" />
+                            </div>
+                            <div class="name">John Doe</div>
+                            <div class="camera">
+                                <img
+                                    src="img/icons/camOn.png"
+                                    alt="Camera On"
+                                />
+                            </div>
+                            <div class="mic">
+                                <img src="img/icons/micOff.png" alt="Mic Off" />
+                            </div>
+                        </div>
+                        <!-- person container end -->
+                    </div>
+                </div>
+                <div class="msgBox">
+                    <div class="messages">
+                        <!-- msg start -->
+                        <div class="received">
+                            <div class="userIcon">
+                                <img src="img/boy.png" alt="receiver image" />
+                            </div>
+                            <div class="nameMsg">
+                                <div class="name">Lorem doe</div>
+                                <div class="msg">
+                                    Hello, there?
+                                </div>
+                            </div>
+                        </div>
+                        <!-- msg end -->
+
+                        <!-- msg start -->
+                        <div class="sent">
+                            <div class="nameMsg">
+                                <div class="name">Jhon doe</div>
+                                <div class="msg">
+                                    Hey
+                                </div>
+                            </div>
+                            <div class="userIcon">
+                                <img src="img/boy.png" alt="receiver image" />
+                            </div>
+                        </div>
+                        <!-- msg end -->
+
+                        <!-- msg start -->
+                        <div class="received">
+                            <div class="userIcon">
+                                <img src="img/boy.png" alt="receiver image" />
+                            </div>
+                            <div class="nameMsg">
+                                <div class="name">Lorem doe</div>
+                                <div class="msg">
+                                    How are you
+                                </div>
+                            </div>
+                        </div>
+                        <!-- msg end -->
+                    </div>
+                    <div class="footer">
+                        <div class="emojisBox" style="display: none;">
+                            <img
+                                src="img/emojis/clapping-hands.png"
+                                alt="clapping-hands"
+                            />
+                            <img
+                                src="img/emojis/face-with-tears-of-joy.png"
+                                alt="face-with-tears-of-joy"
+                            />
+                            <img
+                                src="img/emojis/hand-wave.png"
+                                alt="hand-wave"
+                            />
+                            <img src="img/emojis/hand.png" alt="hand" />
+                            <img
+                                src="img/emojis/hushed-face.png"
+                                alt="hushed-face"
+                            />
+                            <img
+                                src="img/emojis/party-popper.png"
+                                alt="party-popper"
+                            />
+                            <img
+                                src="img/emojis/smiling-face-with-heart-eyes.png"
+                                alt="smiling-face-with-heart-eyes"
+                            />
+                            <img
+                                src="img/emojis/thinking-face.png"
+                                alt="thinking-face"
+                            />
+                            <img
+                                src="img/emojis/thumbs-down.png"
+                                alt="thumbs-down"
+                            />
+                            <img
+                                src="img/emojis/thumbs-up.png"
+                                alt="thumbs-up"
+                            />
+                        </div>
+                        <div class="toggleEmoji">
+                            <img src="img/emojis/smile.png" alt="emojis" />
+                        </div>
+                        <div class="inputBox">
+                            <input type="text" name="" id="" />
+                        </div>
+                        <div class="send">
+                            <button>Send</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </body>
     <script src="js/jquery-3.5.1.min.js"></script>
+    <script src="js/script.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
     <script src="https://download.agora.io/sdk/web/AgoraRTC_N.js"></script>
     <script src="js/script.js"></script>
 </html>
