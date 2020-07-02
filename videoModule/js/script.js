@@ -249,7 +249,7 @@ const videoJoin = async(client, userData, localTracks) => {
         </div>`
         )
         $("#remote-playerlist").append(student_stream);
-        const audio = new Audio("audio/doorbell.mp3");
+        const audio = new Audio("audio/piece-of-cake.mp3");
         audio.play();
         //$("<div class='remoteName' id='player-wrapper-"+uid+"'>"+userData.name+"</div><div class='player-remote' id= 'remote_video_"+uid+"'></div>").appendTo("#remote-playerlist");
         user.videoTrack.play("remote_video_" + uid);

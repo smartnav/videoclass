@@ -709,6 +709,11 @@ body {
 .chatBox .msgBox .messages .received .nameMsg .msg {
 }
 
+.chatBox .msgBox .messages .received .nameMsg .msg img {
+    height: 30px;
+}
+
+
 .chatBox .msgBox .messages .sent {
     align-self: flex-end;
     border-radius: 20px 20px 20px 0;

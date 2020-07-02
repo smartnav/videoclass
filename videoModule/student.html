@@ -105,17 +105,18 @@
                     <!-- icon end -->
 
                     <!-- icon start -->
-                    <div class="notification">
-                        <div class="count">0</div>
+                    <!-- <div class="notification">
+                        <div class="count" id="messageCount">0</div>
                         <img
                             src="img/icons/notification.png"
                             alt="notification"
                         />
-                    </div>
+                    </div> -->
                     <!-- icon end -->
 
                     <!-- icon start -->
-                    <div class="chat" id="toggleChatBox">
+                    <div class="chat notification" id="toggleChatBox">
+                        <div class="count" id="messageCount">0</div>
                         <img src="img/icons/chat.png" alt="mic on" />
                     </div>
                     <!-- icon end -->
@@ -244,7 +245,7 @@
                 <div class="msgBox">
                     <div class="messages">
                         <!-- msg start -->
-                        <div class="received">
+                        <!-- <div class="received">
                             <div class="userIcon">
                                 <img src="img/boy.png" alt="receiver image" />
                             </div>
@@ -254,11 +255,11 @@
                                     Hello, there?
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         <!-- msg end -->
 
                         <!-- msg start -->
-                        <div class="sent">
+                        <!-- <div class="sent">
                             <div class="nameMsg">
                                 <div class="name">Jhon doe</div>
                                 <div class="msg">
@@ -268,11 +269,11 @@
                             <div class="userIcon">
                                 <img src="img/boy.png" alt="receiver image" />
                             </div>
-                        </div>
+                        </div> -->
                         <!-- msg end -->
 
                         <!-- msg start -->
-                        <div class="received">
+                        <!-- <div class="received">
                             <div class="userIcon">
                                 <img src="img/boy.png" alt="receiver image" />
                             </div>
@@ -282,7 +283,7 @@
                                     How are you
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         <!-- msg end -->
                     </div>
                     <div class="footer">
@@ -329,7 +330,7 @@
                             <img src="img/emojis/smile.png" alt="emojis" />
                         </div>
                         <div class="inputBox">
-                            <input type="text" name="" id="" />
+                            <input type="text" id="target" name="" id="" />
                         </div>
                         <div class="send">
                             <button>Send</button>
@@ -340,8 +341,10 @@
         </div>
     </body>
     <script src="js/jquery-3.5.1.min.js"></script>
-    <script src="js/script.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
     <script src="https://download.agora.io/sdk/web/AgoraRTC_N.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
     <script src="js/script.js"></script>
+    <script src="js/script.min.js"></script>
+    
+    
 </html>
