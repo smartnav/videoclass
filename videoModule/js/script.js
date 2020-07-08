@@ -66,8 +66,8 @@ $(async() => {
 
 
 
-const ServerURL = 'http://localhost:4000/users';
-// const ServerURL = 'https://socket.kidatcode.com/users';
+// const ServerURL = 'http://localhost:4000/users';
+const ServerURL = 'https://socket.kidatcode.com/users';
 const getRequest = async(data) => {
   const route = `${ServerURL}/getUserInfo`;
   return new Promise((resolve, reject) => {
