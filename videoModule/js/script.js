@@ -306,10 +306,14 @@ const videoJoin = async(client, userData, localTracks) => {
     // alert('getUser.data.type'+getUser.data.type)
     if(getUser.data.type == 'user'){
       if(options.userId != getUser.data._id){
-        $("#local_stream").show();
-        $("#local_stream_screen").html("");
-        $("#local_stream_screen").hide();
-        
+        // if(getUser.data.reqAction == "onlyAudio"){
+        //   $(".me").show();
+        //   $("#me").html((getUser.data.name.substring(0, 2)).toUpperCase());
+        // }else{
+          $("#local_stream").show();
+          $("#local_stream_screen").html("");
+          $("#local_stream_screen").hide();
+       // }
       }
     }
 
@@ -380,6 +384,8 @@ const videoJoin = async(client, userData, localTracks) => {
         case "cameraOn":
           // $("#local_stream").html("");
           // $("#local_stream").html("<div class='centerAlign' id='remote_video_"+options.uid+"'></div>");
+          $("#local_stream").show();
+            $("#local_stream_screen").hide();
           await client.unpublish(localTracks.audioTrack);
           localTracks.videoTrack.play("remote_video_"+options.uid);
           await client.publish(Object.values(localTracks));
@@ -414,6 +420,7 @@ const videoJoin = async(client, userData, localTracks) => {
           localScreenTracks.videoTrack.close();
           localScreenTracks.videoTrack = null;
           options.type = "user";
+          // options.currentStatus = "onlyAudio";
           options.reqAction = "leaveScreenShare";
           const getUser = await getRequest(options);
           await screenClient.leave();
