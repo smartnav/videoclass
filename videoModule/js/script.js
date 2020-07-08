@@ -353,7 +353,7 @@ const videoJoin = async(client, userData, localTracks) => {
     // $("#join").show();
     // $("#leave").hide();
     console.log("client leaves channel success");
-    location.href = "https://smartnav.github.io/videoclass/videoModule/";
+    location.href = "https://smartnav.github.io/videoclass/videoModule/index.html?action=leave";
   }
 
   const buttonFun = async(type) => {
