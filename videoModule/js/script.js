@@ -14,9 +14,14 @@ var localScreenTracks = {
     appid: "141d75a8f7d24d5cb92d9d6ff6a41aa7",
     channel: "navishk",
     uid: null,
-    token: "006141d75a8f7d24d5cb92d9d6ff6a41aa7IACYfIKsBuay14b3HBl7RfxhfGM2sMNzjKX9Q1UtsW+A56kWApQAAAAAEABzZqLAcAH/XgEAAQBwAf9e"
+    token: "006141d75a8f7d24d5cb92d9d6ff6a41aa7IAA98Xa0ALiFxkVQLFZcG41KrUTxSrwT2PysTbn6Eiue3akWApQAAAAAEADXzqF+KtEGXwEAAQAr0QZf"
   };
 
+var localStatus = {
+  camera: false,
+  mic: false,
+  screenShare: false
+}
 $(async() => {
     $("body").on("click", "#card", function () {
         let curr = $(this);
@@ -61,8 +66,8 @@ $(async() => {
 
 
 
-// const ServerURL = 'http://localhost:4000/users';
-const ServerURL = 'https://socket.kidatcode.com/users';
+const ServerURL = 'http://localhost:4000/users';
+// const ServerURL = 'https://socket.kidatcode.com/users';
 const getRequest = async(data) => {
   const route = `${ServerURL}/getUserInfo`;
   return new Promise((resolve, reject) => {
@@ -90,9 +95,27 @@ const videoJoin = async(client, userData, localTracks) => {
     if(userData.role == 'host'){
       $("#local_stream").html("");
       $("#hostName").html(userData.name);
-      $("#local_stream").html("<div class='centerAlign' id='remote_video_"+userData.uid+"'></div>");
-      localTracks.videoTrack.play("remote_video_"+userData.uid);
-      await client.publish(Object.values(localTracks));
+      if(localTracks.videoTrack && localTracks.audioTrack ){
+        $("#local_stream").html("<div class='centerAlign' id='remote_video_"+userData.uid+"'></div>");
+        localTracks.videoTrack.play("remote_video_"+userData.uid);
+        await client.publish(Object.values(localTracks));
+        localStatus.camera = true;
+        localStatus.audio = true;
+      }
+      else if(localTracks.audioTrack)
+      {
+        // localTracks.audioTrack.play();
+        $(".me").show();
+        $("#me").html((userData.name.substring(0, 2)).toUpperCase());
+        await client.publish(localTracks.audioTrack);
+        $(".cemera").addClass("disabledbutton");
+        localStatus.camera = false;
+        localStatus.audio = true;
+      }
+      else{
+        alert("Sorry, you cannot join this without audio");
+        location.href = "https://smartnav.github.io/videoclass/videoModule/index.html";
+      }
       $(".videoLoader").remove();
     }else{
       let student_stream = $(`<div
@@ -122,12 +145,16 @@ const videoJoin = async(client, userData, localTracks) => {
   const screenJoin = async(screenClient, userData, localScreenTracks) => {
     if(userData.role == 'host'){
       localTracks.videoTrack.stop("remote_video_"+options.uid);
+
       $("#local_stream").hide();
+      $(".me").hide();
       $("#local_stream_screen").show();
       $("#local_stream_screen").html("");
       $("#local_stream_screen").html("<div class='centerAlignScreen' id='remote_video_screen_"+userData.screenid+"'></div>");
       localScreenTracks.videoTrack.play("remote_video_screen_"+userData.screenid);
       await screenClient.publish(localScreenTracks.videoTrack);
+      localStatus.screenShare = true;
+      localStatus.audio = true;
     }else{
       alert("You are not authorized to share your screen.")
     } 
@@ -226,6 +253,7 @@ const videoJoin = async(client, userData, localTracks) => {
           if(options.userId != userData._id){
             // alert(options.userId+ " -  " + userData._id)
             $("#local_stream").hide();
+            $(".me").hide();
             $("#local_stream_screen").show();
             $("#local_stream_screen").html("");
             $("#local_stream_screen").html("<div class='centerAlignScreen' id='remote_video_screen_"+userData.screenid+"'></div>");
@@ -335,6 +363,9 @@ const videoJoin = async(client, userData, localTracks) => {
             $("#me").html((options.name.substring(0, 2)).toUpperCase());
             $("#cameraOn").hide();
             $("#cameraOff").show();
+            localStatus.camera = false;
+            localStatus.screenShare = false;
+            localStatus.audio = true;
           }else{
             // $("#video-not-found"+options.uid).show();
             // $("#videoNotFound"+options.uid).html((options.name.substring(0, 2)).toUpperCase());
@@ -355,6 +386,9 @@ const videoJoin = async(client, userData, localTracks) => {
           $(".me").hide();
           $("#cameraOff").hide();
           $("#cameraOn").show();
+          localStatus.camera = true;
+          localStatus.screenShare = false;
+          localStatus.audio = true;
           break;
         case "micOff":
           localTracks.audioTrack.setVolume(0);
@@ -383,11 +417,23 @@ const videoJoin = async(client, userData, localTracks) => {
           options.reqAction = "leaveScreenShare";
           const getUser = await getRequest(options);
           await screenClient.leave();
-          $("#local_stream").show();
-          $("#local_stream_screen").hide();
-          $("#shareScreenOn").show();
-          $("#shareScreenOff").hide();
-          localTracks.videoTrack.play("remote_video_"+options.uid);
+          // localStatus.camera = false;
+          localStatus.screenShare = false;
+          localStatus.audio = true;
+          if(localStatus.camera){
+            $("#local_stream").show();
+            $("#local_stream_screen").hide();
+            $("#shareScreenOn").show();
+            $("#shareScreenOff").hide();
+            localTracks.videoTrack.play("remote_video_"+options.uid);
+          }else{
+            $(".me").show();
+            $("#shareScreenOn").show();
+            $("#shareScreenOff").hide();
+            //$("#me").html((userData.name.substring(0, 2)).toUpperCase());
+            //await client.publish(localTracks.audioTrack);
+          }
+          
           break;
         case "leave":
           leave();

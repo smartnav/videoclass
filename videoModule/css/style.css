@@ -403,6 +403,7 @@ body {
     padding: 0px 5px;
     border-radius: 0 0 5px 5px;
     font-size: 14px;
+    z-index: 9999;
 }
 
 /* classroom animation delay start */
@@ -952,4 +953,8 @@ body {
     .video .imgContainer .screen img {
         height: 200px;
     }
+}
+.disabledbutton {
+    pointer-events: none;
+    opacity: 0.4;
 }
