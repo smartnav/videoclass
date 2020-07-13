@@ -14,7 +14,7 @@ var localScreenTracks = {
     appid: "141d75a8f7d24d5cb92d9d6ff6a41aa7",
     channel: "navishk",
     uid: null,
-    token: "006141d75a8f7d24d5cb92d9d6ff6a41aa7IAC8tNrfo/5bIpFf45AoJD5mkwuSjiala8gkAqmL/0bX86kWApQAAAAAEABeXNjsD9YJXwEAAQAP1glf"
+    token: "006141d75a8f7d24d5cb92d9d6ff6a41aa7IABroGuAmiAC8L89KUTcQFGLLhaHa9mqqj0y3+6wJt5YEakWApQAAAAAEADikULNa0YNXwEAAQBrRg1f"
   };
 
 var localStatus = {
